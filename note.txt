@@ -1,0 +1,56 @@
+CONFIGURE BASE PROJECT
+
+***** make main page + add package.json
+    - touch index.js
+    - npm init || npm init -y (to create package.json)
+
+***** make base file project
+    - touch .gitignore (to add files/folders that are not pushed on github)
+    - touch .env (to store confidential data)
+    - touch .env.example (a copy of the variable declarations in .env)
+    - touch config.js (to declare the variables in .env)
+    - touch jsconfig.json (not used yet)
+
+***** make base folder project
+    - mkdir helpers (to save the global function)
+    - mkdir db (to save the database connection)
+    - mkdir models (to save data that is directly related to the database)
+    - mkdir controllers (to save data that connects the model with the route in every request process from the user[GET, POST, PUT, PATCH, DELETE])
+    - mkdir routes (to save the route for each request made)
+    - mkdir middlewares (to save the boundary / mediator function between the operating system and the application to simplify the integration process.)
+
+***** install dependencies to package.json
+    - npm i express
+    - npm i cors
+    - npm i dotenv 
+    - npm i pg 
+    - npm i jsonwebtoken
+
+***** install dev-dependencies to package.json
+    - npm i --save-dev nodemon
+
+***** setup module and main-page in package.json
+    - "type": "module", (to load ES module)
+    - "main": "index.js" (to set the main page)
+
+***** setup script in package.json (how to run command : npm run scriptname)
+    - "port-wsl": "lsof -i -P -n | grep LISTEN", (display the running port in linux)
+    - "port-win": "netstat -a | grep LISTEN", || "port-win": "netstat -a | grep 8000" (display the running port in windows)
+    - "kill-port": "npx kill-port 8000", (kill the running port)
+    - "dev": "yes | npx kill-port 8000 && nodemon index.js", (mix command : kill the running port and then run nodemon on the main page <yes : optional>)
+    - "migrate-create": "node migrations/migrateCreateTable.js", (to run the migration create tables in the database)
+    - "migrate-drop": "node migrations/migrateDropTable.js" (to run the migration drop tables in the database)
+
+***** setup connection db
+    - touch database.js
+    - make configuration to database (pg / mysql2 / prisma / sequalize)
+    - create a helper function to check the connection to the database (path : ./helpers/connectionDatabase.js)
+    - call function before use method express().use in index.js (path : ./index.js)
+
+***** how to create table and migrate to database ?
+    - add the query and push to the array that was created in createTable.js (path: ./migration/createTable.js)
+    - command : npm run migrate-create
+
+***** how to drop table and migrate to database ?
+    - add the query and push to the array that was created in dropTable.js (path: ./migration/dropTable.js)
+    - command : npm run migrate-drop
