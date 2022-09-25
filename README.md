@@ -26,6 +26,8 @@ $ git clone -b <branch> <remote_repo> (ex: git clone -b development https://gith
 $ npm install (to install dependencies on the project stored in package.json)
 # step 1 : rename .env.example to .env
 # step 2 : fill in the value of each secret variable in .env
+# note : check run-script in package.json
+$ npm run dev
 ```
 
 ## DOCUMENTATION
