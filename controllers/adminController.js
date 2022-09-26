@@ -1,6 +1,6 @@
 import {
   getAllAdmins,
-  storeAdmins,
+  storeAdmin,
   getById,
   editAdminById,
   deleteAdmin,
@@ -14,7 +14,7 @@ const showAllAdmins = async (req, res) => {
 
 const register = async (req, res) => {
   const { name, email, password, address } = req.body;
-  storeAdmins(name, email, password, address).then((data) => {
+  storeAdmin(name, email, password, address).then((data) => {
     res.json(data);
   });
 };

@@ -12,7 +12,7 @@ const getAllAdmins = async () => {
   }
 };
 
-const storeAdmins = async (name, email, password, address) => {
+const storeAdmin = async (name, email, password, address) => {
   try {
     const date_now = new Date();
     const data = await db.query(
@@ -55,12 +55,18 @@ const editAdminById = async (name, password, address, admin_id) => {
       let set = "";
       if (!!name) {
         set += `name='${name}'`;
+        if (!!password || !!address) {
+          set += `,`;
+        }
       }
       if (!!password) {
-        set += `, password='${password}'`;
+        set += `password='${password}'`;
+        if (!!address) {
+          set += `,`;
+        }
       }
       if (!!address) {
-        set += `, address='${address}'`;
+        set += `address='${address}'`;
       }
 
       const data = await db.query(
@@ -90,4 +96,4 @@ const deleteAdmin = async (admin_id) => {
   }
 };
 
-export { getAllAdmins, storeAdmins, getById, editAdminById, deleteAdmin };
+export { getAllAdmins, storeAdmin, getById, editAdminById, deleteAdmin };
