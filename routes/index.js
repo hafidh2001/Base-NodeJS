@@ -1,6 +1,6 @@
 import { Router } from "express";
 import adminRoutes from "./adminRoutes.js";
-import customerRoutes from "./customerRoutes.js";
+import userRoutes from "./userRoutes.js";
 
 const router = Router();
 
@@ -16,6 +16,6 @@ router.get("/test", (req, res) => {
 
 // create same-endpoint
 router.use("/admin", adminRoutes);
-router.use("/customer", customerRoutes);
+router.use("/user", userRoutes);
 
 export default router;
