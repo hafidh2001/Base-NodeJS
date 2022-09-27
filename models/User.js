@@ -29,6 +29,30 @@ export const storeUser = async (name, email, password, address) => {
   }
 };
 
+export const checkUser = async (email, password) => {
+  try {
+    if (email == null || password == null)
+      return { status: "error", message: "email & password are required" };
+
+    const data = await db.query(
+      `SELECT name, email, password FROM users WHERE email = $1`,
+      [email]
+    );
+    if (data?.rowCount === 0)
+      return { status: "error", message: "email does not exist" };
+
+    const res = data?.rows[0];
+    if (!(await compare(password, res.password))) {
+      return { status: "error", message: "password does not match" };
+    } else {
+      delete res.password;
+      return { status: "success", res };
+    }
+  } catch (error) {
+    return { status: "error", message: error.message };
+  }
+};
+
 export const deleteUser = async (user_id) => {
   try {
     const data = await db.query(
