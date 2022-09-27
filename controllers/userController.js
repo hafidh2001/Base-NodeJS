@@ -1,16 +1,21 @@
-import { getAllUsers, storeUser, getById } from "../models/User.js";
+import { getAllUsers, storeUser, deleteUser } from "../models/User.js";
 
-const showAllUsers = async (req, res) => {
+export const showAllUsers = async (req, res) => {
   getAllUsers().then((data) => {
     res.json(data);
   });
 };
 
-const register = async (req, res) => {
+export const register = async (req, res) => {
   const { name, email, password, address } = req.body;
   storeUser(name, email, password, address).then((data) => {
     res.json(data);
   });
 };
 
-export { showAllUsers, register };
+export const deleteById = async (req, res) => {
+  const { id } = req.params;
+  deleteUser(id).then((data) => {
+    res.json(data);
+  });
+};

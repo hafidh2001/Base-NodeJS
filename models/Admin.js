@@ -1,6 +1,6 @@
 import db from "../db/database.js";
 
-const getAllAdmins = async () => {
+export const getAllAdmins = async () => {
   try {
     const data = await db.query(`SELECT * FROM admins`);
     const resCount = data?.rowCount;
@@ -12,7 +12,7 @@ const getAllAdmins = async () => {
   }
 };
 
-const storeAdmin = async (name, email, password, address) => {
+export const storeAdmin = async (name, email, password, address) => {
   try {
     const date_now = new Date();
     const data = await db.query(
@@ -27,7 +27,7 @@ const storeAdmin = async (name, email, password, address) => {
   }
 };
 
-const getById = async (admin_id) => {
+export const getById = async (admin_id) => {
   try {
     const data = await db.query(`SELECT * FROM admins WHERE admin_id = $1`, [
       admin_id,
@@ -44,7 +44,7 @@ const getById = async (admin_id) => {
   }
 };
 
-const editAdminById = async (name, password, address, admin_id) => {
+export const editAdminById = async (name, password, address, admin_id) => {
   try {
     const date_now = new Date();
     if (!!admin_id) {
@@ -82,7 +82,7 @@ const editAdminById = async (name, password, address, admin_id) => {
   }
 };
 
-const deleteAdmin = async (admin_id) => {
+export const deleteAdmin = async (admin_id) => {
   try {
     const data = await db.query(
       `DELETE FROM admins WHERE admin_id = $1 RETURNING *`,
@@ -95,5 +95,3 @@ const deleteAdmin = async (admin_id) => {
     return { status: "error", message: error.message };
   }
 };
-
-export { getAllAdmins, storeAdmin, getById, editAdminById, deleteAdmin };

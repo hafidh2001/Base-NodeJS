@@ -24,6 +24,7 @@ CONFIGURE BASE PROJECT
     - npm i cors
     - npm i dotenv 
     - npm i pg 
+    - npm i bcrypt 
     - npm i jsonwebtoken
 
 ***** install dev-dependencies to package.json
