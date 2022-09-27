@@ -35,7 +35,7 @@ export const checkUser = async (email, password) => {
       return { status: "error", message: "email & password are required" };
 
     const data = await db.query(
-      `SELECT name, email, password FROM users WHERE email = $1`,
+      `SELECT user_id, name, email, password FROM users WHERE email = $1`,
       [email]
     );
     if (data?.rowCount === 0)

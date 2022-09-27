@@ -4,6 +4,8 @@ import {
   deleteUser,
   checkUser,
 } from "../models/User.js";
+import jwt from "jsonwebtoken";
+import { jwt_secret } from "../config.js";
 
 export const showAllUsers = async (req, res) => {
   getAllUsers().then((data) => {
@@ -21,7 +23,9 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
   const { email, password } = req.body;
   checkUser(email, password).then((data) => {
-    res.json(data);
+    const payload = data?.res;
+    const token = jwt.sign({ ...payload }, jwt_secret, { expiresIn: "24h" });
+    res.json({ ...data, token: token });
   });
 };
 
