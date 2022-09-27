@@ -55,3 +55,12 @@ CONFIGURE BASE PROJECT
 ***** how to drop table and migrate to database ?
     - add the query and push to the array that was created in dropTable.js (path: ./migration/dropTable.js)
     - command : npm run migrate-drop
+
+***** how to use hash-compare bcrypt ?
+    - bcrypt.hash (to encoded the value)
+    - bcrypt.compare (to check the encoded value) 
+
+***** how to use jwt ?
+    - jwt.sign (to encode the token)
+    - jwt.verify (to check the encoded token)
+    - https://jwt.io/ (to check the decoded token that has been encoded)
