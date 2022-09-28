@@ -4,8 +4,8 @@ export const getAllAdmins = async () => {
   try {
     const data = await db.query(`SELECT * FROM admins`);
     const resCount = data?.rowCount;
-    const res = data?.rows;
-    delete res.password;
+    let res = data?.rows;
+    res = res.filter((item) => delete item.password);
     return { status: "success", count: resCount, res };
   } catch (error) {
     return { status: "error", message: error.message };
@@ -33,7 +33,7 @@ export const getById = async (admin_id) => {
       admin_id,
     ]);
     if (data?.rowCount > 0) {
-      const res = data?.rows;
+      const res = data?.rows[0];
       delete res.password;
       return { status: "success", res };
     } else {

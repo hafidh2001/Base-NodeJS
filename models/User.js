@@ -5,9 +5,26 @@ export const getAllUsers = async () => {
   try {
     const data = await db.query(`SELECT * FROM users`);
     const resCount = data?.rowCount;
-    const res = data?.rows;
-    delete res.password;
+    let res = data?.rows;
+    res = res.filter((item) => delete item.password);
     return { status: "success", count: resCount, res };
+  } catch (error) {
+    return { status: "error", message: error.message };
+  }
+};
+
+export const getUserById = async (user_id) => {
+  try {
+    const data = await db.query(
+      `SELECT user_id, name, email FROM users WHERE user_id = $1`,
+      [user_id]
+    );
+    if (data?.rowCount > 0) {
+      const res = data?.rows[0];
+      return { user_id: res.user_id, name: res.name, email: res.email };
+    } else {
+      return;
+    }
   } catch (error) {
     return { status: "error", message: error.message };
   }
@@ -15,6 +32,12 @@ export const getAllUsers = async () => {
 
 export const storeUser = async (name, email, password, address) => {
   try {
+    if (name == null || email == null || password == null || address == null)
+      return {
+        status: "error",
+        message: "name, email, password & address are required",
+      };
+
     const encrypt_password = await hash(password);
     const date_now = new Date();
     const data = await db.query(
